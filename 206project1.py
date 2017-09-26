@@ -1,5 +1,6 @@
 import os
 import filecmp
+import re
 
 def getData(file):
 #Input: file name
@@ -45,8 +46,21 @@ def classSizes(data):
 # Output: Return a list of tuples ordered by
 # ClassName and Class size, e.g 
 # [('Senior', 26), ('Junior', 25), ('Freshman', 21), ('Sophomore', 18)]
+	
 	class_count = {}
-	for dic in data.values():
+	class_list = list()
+	for dic in data:
+		if dic["Class"] not in class_count.keys():
+			class_count[dic["Class"]] = 1
+		else:
+			class_count[dic["Class"]] = class_count[dic["Class"]] + 1
+
+	for item in class_count.items():
+		class_list.append(item)
+
+	new_list = sorted (class_list, key = lambda x: [x[1]], reverse = True)
+	
+	return new_list
 		
 
 
@@ -56,8 +70,35 @@ def findDay(a):
 # Output: Return the day of month (1-31) that is the
 # most often seen in the DOB
 
-	#Your code here:
-	pass
+	day_count = {}
+	class_list = list()
+	dates = list()
+	list_days = list()
+	for dic in a:
+		dates.append(dic['DOB'])
+
+	for items in dates:
+		days = re.findall('[/]([0-9]+)[/]', items)
+		list_days.append(days)
+
+	for x in list_days:
+		for y in x:
+			if y not in day_count.keys():
+				day_count[y] = 1
+			else:
+				day_count[y] += 1
+	max_ = 0
+	day = 0
+
+
+
+
+	for k in day_count:
+		if day_count[k] >= max_:
+			max_ = day_count[k]
+			day = k
+	
+	return int (day) 
 
 
 # Find the average age (rounded) of the Students

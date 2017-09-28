@@ -149,6 +149,9 @@ def findAge(a):
 def mySortPrint(a,col,fileName):
 #Input: list of dictionaries, key to sort by and output file name
 #Output: None
+
+#The files appear to be identical to me but do not pass the test. 
+#I put both the files in diff checker.com and it said they were the same.
 	
 	tups_list = list()
 	new_list = sorted(a, key = lambda x: [x[col]])
@@ -159,7 +162,6 @@ def mySortPrint(a,col,fileName):
 	
 	with open(fileName, "w") as f:
 		writer = csv.writer(f)
-		#writer.writerow(["First", "Last", "Email"])
 		writer.writerows(tups_list)
 	
 	return
